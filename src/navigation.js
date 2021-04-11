@@ -1,7 +1,5 @@
 import React from 'react';
 import './navigation.css';
-import HelpWindow from "./help-window"
-
 
 export default function TopNavigation({onClickNewGame, onClickShowRules}) {
   return (
