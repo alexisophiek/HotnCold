@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 // import Gradient from "javascript-color-gradient";
 
 export default class BasicForm extends React.Component {
@@ -11,8 +11,7 @@ export default class BasicForm extends React.Component {
     }
   } 
   render() {
-    const {disableInputField, min, max, btnLabel} = this.props;
-
+    const {disableInputField, min, max} = this.props;
     return (
       <>
         <section>
@@ -26,7 +25,6 @@ export default class BasicForm extends React.Component {
           max={max}
           ref={input => this.textInput = input}
         />  
-        {/* <button>{btnLabel}</button>         */}
         <input type="submit" value="Take a Guess" />
         </form>
       </>
