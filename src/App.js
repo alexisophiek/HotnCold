@@ -6,6 +6,7 @@ import Footer from "./footer";
 import HelpWindow from "./help-window";
 import GuessResult from './guess-result';
 import GuessedNumbersCount from './guess-count';
+import ColorArray from './color-gradient';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -112,6 +113,7 @@ export default class App extends React.Component {
             min={minNumber}
             max={maxNumber}
           />
+        <ColorArray />
         <p>Your Current Guess</p>
         {this.state.currentGuess}
         <div>All Previous Guesses <br></br> {this.state.previousGuesses}</div>
