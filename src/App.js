@@ -83,6 +83,9 @@ export default class App extends React.Component {
     return listLength;
   }
 
+  // Handle if no entry is pressed or if take a guess is pressed post winning/losing
+  // After "Start a New Game" - Show text stops working - why?
+
   generateNumberToGuess(min, max) {
     return Math.floor(Math.random() * max) + min;
   }
@@ -117,8 +120,7 @@ export default class App extends React.Component {
         />
         <GuessResult guessResultText={this.state.showText} />
         <ColorArray />
-        <p>Your Current Guess</p>
-        {this.state.currentGuess}
+        <div>Your Current Guess<br></br>{this.state.currentGuess}</div>
         <div>All Previous Guesses <br></br> {this.state.previousGuesses.toString()}</div>
         <GuessedNumbersCount count={this.state.previousGuesses.length} />
       </div>
