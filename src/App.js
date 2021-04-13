@@ -120,8 +120,8 @@ export default class App extends React.Component {
         />
         <GuessResult guessResultText={this.state.showText} />
         <ColorArray />
-        <div>Your Current Guess<br></br>{this.state.currentGuess}</div>
-        <div>All Previous Guesses <br></br> {this.state.previousGuesses.toString()}</div>
+        <div>Your Current Guess: {this.state.currentGuess}</div>
+        <div>All Previous Guesses: {this.state.previousGuesses.toString()}</div>
         <GuessedNumbersCount count={this.state.previousGuesses.length} />
       </div>
     );
