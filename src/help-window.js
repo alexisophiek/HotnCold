@@ -1,5 +1,5 @@
 import React from 'react';
-// import './game-rules.css';
+import './help-window.css';
 
 export default function HelpWindow({onClickClose}) {
   return (
@@ -7,7 +7,7 @@ export default function HelpWindow({onClickClose}) {
       <div className="content">
         <h3>How Do I Play?</h3>
         <div className="rules">
-          <p>This is a Hot or Cold Number Guessing Game. The game goes like this: </p>
+          <p>This is a "Hot or Cold? Number Guessing Game. The game goes like this: </p>
 
           <button onClick={() => onClickClose()}>Got It!</button>
         </div>
