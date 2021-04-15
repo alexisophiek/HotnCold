@@ -12,6 +12,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      guessCount: '',
+      maxCount: '10',
       showGameRules: false,
       currentGuess: '',
       previousGames: {},
@@ -22,7 +24,9 @@ export default class App extends React.Component {
         hot: 'Very warm!',
         warmer: 'That is closer...',
         cold: 'Brrr, cold!',
-        playAgain: 'Play again?'
+        playAgain: 'Play again?',
+        reSet: '',
+        tenAttempts: 'You are out of guesses. Start a new game to continue.'
       },
       secretNumber: this.generateNumberToGuess(this.props.minNumber, this.props.maxNumber)
   };
@@ -48,6 +52,9 @@ export default class App extends React.Component {
   setSecretNumber(secretNumber) {
     this.setState({secretNumber});
   }
+  setGuessCount(guessCount) {
+    this.setState({guessCount});
+  }
 
   hotOrCold(secretNumber, guess) {
     if (secretNumber === guess) {
@@ -63,6 +70,9 @@ export default class App extends React.Component {
     if (howFar < 5) {
       return this.state.guessResultOutcomes.hot;
     }
+    if (this.state.previousGuesses.length === this.state.maxCount) {
+      return this.state.guessResultOutcomes.tenAttempts
+    }
   }
 
   onSubmitGuessedNumber(guessedNumber) {
@@ -70,17 +80,18 @@ export default class App extends React.Component {
     const guessedCorrectly = this.state.secretNumber === guessedNumber;
     const previousGuesses = [...this.state.previousGuesses, guessedNumber];
     const currentGuess = guessedNumber;
-    let listLength = this.state.previousGuesses.length;
-    console.log("How Many Guesses so far", listLength);
+    const guessCount = this.state.previousGuesses.length;
+    // var listLength = this.state.previousGuesses.length;
     console.log("The Number to Guess is:", this.state.secretNumber);
     console.log("Guess Text:", this.hotOrCold(this.state.secretNumber, guessedNumber))
     this.setState({
       showText,
       guessedCorrectly,
       currentGuess,
-      previousGuesses
+      previousGuesses,
+      guessCount
     });
-    return listLength;
+    // return listLength;
   }
 
   // Handle if no entry is pressed or if take a guess is pressed post winning/losing
@@ -92,11 +103,12 @@ export default class App extends React.Component {
 
   onSubmitRestart() {
     this.setPreviousGuesses([]);
-    this.setGuessResultOutcomes(this.state.guessResultOutcomes.playAgain);
-    this.setShowText(this.state.guessResultOutcomes.playAgain);
+    // this.setGuessResultOutcomes(this.state.guessResultOutcomes.playAgain);
+    this.setShowText(this.state.guessResultOutcomes.reSet);
     this.setGuessedCorrectly(false);
     this.setSecretNumber(this.generateNumberToGuess(this.props.minNumber, this.props.maxNumber));
     this.setCurrentGuess('');
+    this.setGuessCount('');
   }
 
   render() {
