@@ -7,17 +7,6 @@ import HelpWindow from "./help-window";
 import GuessResult from './guess-result';
 import GuessedNumbersCount from './guess-count';
 import ColorArray from './color-gradient';
-// import OutOfGuesses from './out-of-guesses';
-// import ProgressBar from './line-chart';
-
-// const width = 500, height = 350
-// const data = [
-//   {a: 1, b: 3},
-//   {a: 2, b: 6},
-//   {a: 3, b: 2},
-//   {a: 4, b: 12},
-//   {a: 5, b: 8}
-// ]
 
 export default class App extends React.Component {
   constructor(props) {
@@ -144,7 +133,6 @@ generateNumberToGuess(min, max) {
       <div className="App">
         <TopNavigation onClickNewGame={() => this.onSubmitRestart()} onClickShowRules={() => this.setShowGameRules(true)}/>
         <Footer />
-        {/* <ProgressBar /> */}
         <BasicForm
           disableInputField={this.state.guessedCorrectly}
           onSubmit={number => this.state.guessedCorrectly ? this.onSubmitRestart() : this.onSubmitGuessedNumber(number)}
@@ -156,10 +144,10 @@ generateNumberToGuess(min, max) {
         <GuessResult guessResultText={this.state.showText} />
         {/* <OutOfGuesses guessCount={this.state.guessCount}
           guessMaxCount={this.state.maxCount} /> */}
-        <ColorArray />
         <div>Your Current Guess: {this.state.currentGuess}</div>
-        <div>All Previous Guesses: {this.state.previousGuesses.toString()}</div>
+        <div>Your Previous Guesses: {this.state.previousGuesses.toString()}</div>
         <GuessedNumbersCount count={this.state.guessCount} />
+        <br></br><ColorArray />
       </div>
     );
   }
