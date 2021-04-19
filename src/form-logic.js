@@ -1,33 +1,62 @@
 import React from "react";
-// import Gradient from "javascript-color-gradient";
 
 export default class BasicForm extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     let guessedNumber = parseInt(this.textInput.value.trim(), 10);
-    this.textInput.value = '';
+    this.textInput.value = "";
     if (Number.isInteger(guessedNumber) || this.textInput.disabled) {
       this.props.onSubmit(guessedNumber);
     }
-  } 
+  }
   render() {
-    const {disableInputField, min, max} = this.props;
-    return (
-      <>
-        <section>
-          <p>I'm thinking of a number. Can you guess it?</p>
-        </section>
-        <form onSubmit={e => this.onSubmit(e)}>
-        <input
-          disabled={disableInputField}
-          type="number"
-          min={min}
-          max={max}
-          ref={input => this.textInput = input}
-        />  
-        <input type="submit" value="Take a Guess" />
-        </form>
-      </>
-    );
+    const {
+      disableInputField,
+      min,
+      max,
+      guessCount,
+      guessMaxCount,
+    } = this.props;
+    if (guessCount > guessMaxCount) {
+      return (
+        <>
+          <section>
+            <h2>
+              You are out of guesses. Start a New Game to continue playing.
+            </h2>
+          </section>
+          <form onSubmit={(e) => this.onSubmit(e)}>
+            <input
+              disabled={true}
+              type="number"
+              name="guess"
+              min={min}
+              max={max}
+              ref={(input) => (this.textInput = input)}
+            />
+            <input type="submit" value="Take a Guess" />
+          </form>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <section>
+            <p>I'm thinking of a number. Can you guess it?</p>
+          </section>
+          <form onSubmit={(e) => this.onSubmit(e)}>
+            <input
+              disabled={disableInputField}
+              type="number"
+              name="guess"
+              min={min}
+              max={max}
+              ref={(input) => (this.textInput = input)}
+            />
+            <input type="submit" value="Take a Guess" />
+          </form>
+        </>
+      );
+    }
   }
 }

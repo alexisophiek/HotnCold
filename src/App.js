@@ -7,18 +7,31 @@ import HelpWindow from "./help-window";
 import GuessResult from './guess-result';
 import GuessedNumbersCount from './guess-count';
 import ColorArray from './color-gradient';
+// import OutOfGuesses from './out-of-guesses';
+// import ProgressBar from './line-chart';
+
+// const width = 500, height = 350
+// const data = [
+//   {a: 1, b: 3},
+//   {a: 2, b: 6},
+//   {a: 3, b: 2},
+//   {a: 4, b: 12},
+//   {a: 5, b: 8}
+// ]
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.handleGuessCount = this.handleGuessCount.bind(this)
     this.state = {
-      guessCount: '',
-      maxCount: '10',
+      guessCount:0,
+      maxCount: 10,
       showGameRules: false,
       currentGuess: '',
-      previousGames: {},
+      // previousGames: {},
       guessedCorrectly: false,
       previousGuesses: [],
+      duplicateGuessFeedback: 'You already guessed this Number!',
       guessResultOutcomes: {
         gameWon: 'You are on Fire!',
         hot: 'Very warm!',
@@ -52,38 +65,43 @@ export default class App extends React.Component {
   setSecretNumber(secretNumber) {
     this.setState({secretNumber});
   }
-  setGuessCount(guessCount) {
+  handleGuessCount(guessCount) {
     this.setState({guessCount});
   }
 
   hotOrCold(secretNumber, guess) {
     if (secretNumber === guess) {
-      return this.state.guessResultOutcomes.gameWon;
-    }
+      return this.state.guessResultOutcomes.gameWon
+    };
+    const guessIndex = this.state.guessCount;
+    if (guessIndex > this.state.maxCount) {
+      return null
+      // return this.state.guessResultOutcomes.tenAttempts
+    };
     const howFar = Math.abs(secretNumber - guess);
     if (howFar > 10) {
-      return this.state.guessResultOutcomes.cold;
-    }
+      return this.state.guessResultOutcomes.cold
+    };
     if (howFar <= 10 && howFar >= 5) {
-      return this.state.guessResultOutcomes.warmer;
-    }
+      return this.state.guessResultOutcomes.warmer
+    };
     if (howFar < 5) {
-      return this.state.guessResultOutcomes.hot;
-    }
-    if (this.state.previousGuesses.length === this.state.maxCount) {
-      return this.state.guessResultOutcomes.tenAttempts
-    }
+      return this.state.guessResultOutcomes.hot
+    };
   }
 
   onSubmitGuessedNumber(guessedNumber) {
+    const previousGuesses = [...this.state.previousGuesses, guessedNumber];
+    // if (this.state.previousGuesses.includes(guessedNumber)) {
+    //   this.setGuessedCorrectly(prevState => ({
+    //     check: !prevState.check
+    //   })
+    // }
+
+    const guessCount = previousGuesses.length;
     const showText = this.hotOrCold(this.state.secretNumber, guessedNumber);
     const guessedCorrectly = this.state.secretNumber === guessedNumber;
-    const previousGuesses = [...this.state.previousGuesses, guessedNumber];
     const currentGuess = guessedNumber;
-    const guessCount = this.state.previousGuesses.length;
-    // var listLength = this.state.previousGuesses.length;
-    console.log("The Number to Guess is:", this.state.secretNumber);
-    console.log("Guess Text:", this.hotOrCold(this.state.secretNumber, guessedNumber))
     this.setState({
       showText,
       guessedCorrectly,
@@ -91,24 +109,27 @@ export default class App extends React.Component {
       previousGuesses,
       guessCount
     });
-    // return listLength;
+    
   }
+    // if (guessCount > this.state.maxCount) {
+//   return this.setGuessedCorrectly(({check}) => ({
+//     check: !check
+//   })),
+//   this.showText
 
-  // Handle if no entry is pressed or if take a guess is pressed post winning/losing
-  // After "Start a New Game" - Show text stops working - why?
+// };
 
-  generateNumberToGuess(min, max) {
+generateNumberToGuess(min, max) {
     return Math.floor(Math.random() * max) + min;
   }
 
   onSubmitRestart() {
     this.setPreviousGuesses([]);
-    // this.setGuessResultOutcomes(this.state.guessResultOutcomes.playAgain);
     this.setShowText(this.state.guessResultOutcomes.reSet);
     this.setGuessedCorrectly(false);
     this.setSecretNumber(this.generateNumberToGuess(this.props.minNumber, this.props.maxNumber));
     this.setCurrentGuess('');
-    this.setGuessCount('');
+    this.handleGuessCount(0);
   }
 
   render() {
@@ -116,25 +137,29 @@ export default class App extends React.Component {
     if (this.state.showGameRules) {
       return <HelpWindow onClickClose={() => this.setShowGameRules(false)} />
     }
-    console.log("These are the previous guesses", this.state.previousGuesses);
-    console.log("This is your current guess", this.state.currentGuess);
+    // console.log("These are the previous guesses", this.state.previousGuesses);
+    // console.log("This is your current guess", this.state.currentGuess);
 
     return (
       <div className="App">
-        {/* <AppElements /> */}
         <TopNavigation onClickNewGame={() => this.onSubmitRestart()} onClickShowRules={() => this.setShowGameRules(true)}/>
         <Footer />
+        {/* <ProgressBar /> */}
         <BasicForm
           disableInputField={this.state.guessedCorrectly}
           onSubmit={number => this.state.guessedCorrectly ? this.onSubmitRestart() : this.onSubmitGuessedNumber(number)}
           min={minNumber}
           max={maxNumber}
+          guessCount={this.state.guessCount}
+          guessMaxCount={this.state.maxCount}
         />
         <GuessResult guessResultText={this.state.showText} />
+        {/* <OutOfGuesses guessCount={this.state.guessCount}
+          guessMaxCount={this.state.maxCount} /> */}
         <ColorArray />
         <div>Your Current Guess: {this.state.currentGuess}</div>
         <div>All Previous Guesses: {this.state.previousGuesses.toString()}</div>
-        <GuessedNumbersCount count={this.state.previousGuesses.length} />
+        <GuessedNumbersCount count={this.state.guessCount} />
       </div>
     );
   }
