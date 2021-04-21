@@ -25,7 +25,7 @@ export default class App extends React.Component {
         warmest: "SO close!",
         warmer: "Pretty close!",
         warm: "Barely warm",
-        lukeWarm: "Luke warm",
+        luke: "Luke warm",
         meh: "Are you even trying?",
         chilled: "Chilly",
         cold: "Cold",
@@ -35,15 +35,15 @@ export default class App extends React.Component {
         reSet: "",
       },
       colorResults: {
-        gameWon: "rgb(130,10,50)",
-        warmest: "rgb(205,50,19)",
-        warmer: "rgb(200,80,25)",
-        warm: "rgb(181, 101, 34)",
-        lukeWarm: "rgb(210, 150, 19)",
-        meh: "rgb(116, 106, 55)",
-        chilled: "rgb(41, 98, 75)",
-        cold: "#4B6E6E",
-        colder: "rgb(19, 78, 111)",
+        gameWon: "#C10000",
+        warmest: "#F33D22",
+        warmer: "#FF6D00",
+        warm: "#FF9700",
+        luke: "#F3D122",
+        meh: "#9AA334",
+        chilled: "#1CC99E",
+        cold: "#1BB1B1",
+        colder: "#1D79BB",
         coldest: "#251991",
         playAgain: "#000",
       },
@@ -89,23 +89,23 @@ export default class App extends React.Component {
       return this.state.guessResultOutcomes.gameWon;
     }
     const howFar = Math.abs(secretNumber - guess);
-    if (howFar > 90 && howFar >= 70) {
+    if (howFar > 80) {
       return this.state.guessResultOutcomes.coldest;
     }
-    if (howFar >= 70 && howFar >= 50) {
+    if (howFar <= 80 && howFar >= 60) {
       return this.state.guessResultOutcomes.colder;
     }
-    if (howFar >= 50 && howFar >= 40) {
+    if (howFar <= 60 && howFar >= 40) {
       return this.state.guessResultOutcomes.cold;
     }
-    if (howFar >= 40 && howFar >= 30) {
+    if (howFar <= 40 && howFar >= 30) {
       return this.state.guessResultOutcomes.chilled;
     }
-    if (howFar >= 30 && howFar >= 20) {
+    if (howFar <= 30 && howFar >= 20) {
       return this.state.guessResultOutcomes.meh;
     }
-    if (howFar >= 20 && howFar >= 15) {
-      return this.state.guessResultOutcomes.lukeWarm;
+    if (howFar <= 20 && howFar >= 15) {
+      return this.state.guessResultOutcomes.luke;
     }
     if (howFar <= 15 && howFar >= 10) {
       return this.state.guessResultOutcomes.warm;
@@ -126,23 +126,23 @@ export default class App extends React.Component {
       return this.state.colorResults.gameWon;
     }
     const howFar = Math.abs(secretNumber - guess);
-    if (howFar > 90 && howFar >= 70) {
+    if (howFar > 80) {
       return this.state.colorResults.coldest;
     }
-    if (howFar >= 70 && howFar >= 50) {
+    if (howFar <= 80 && howFar >= 60) {
       return this.state.colorResults.colder;
     }
-    if (howFar >= 50 && howFar >= 40) {
+    if (howFar <= 60 && howFar >= 40) {
       return this.state.colorResults.cold;
     }
-    if (howFar >= 40 && howFar >= 30) {
+    if (howFar <= 40 && howFar >= 30) {
       return this.state.colorResults.chilled;
     }
-    if (howFar >= 30 && howFar >= 20) {
+    if (howFar <= 30 && howFar >= 20) {
       return this.state.colorResults.meh;
     }
-    if (howFar >= 20 && howFar >= 15) {
-      return this.state.colorResults.lukeWarm;
+    if (howFar <= 20 && howFar >= 15) {
+      return this.state.colorResults.luke;
     }
     if (howFar <= 15 && howFar >= 10) {
       return this.state.colorResults.warm;
@@ -172,6 +172,7 @@ export default class App extends React.Component {
     );
     const guessedCorrectly = this.state.secretNumber === guessedNumber;
     const currentGuess = guessedNumber;
+    console.log("SecretNumber:", this.state.secretNumber)
     this.setState({
       showText,
       guessedCorrectly,
@@ -215,7 +216,7 @@ export default class App extends React.Component {
     this.setCurrentGuess("");
     this.handleGuessCount(0);
   }
-
+  
   render() {
     const { minNumber, maxNumber } = this.props;
     if (this.state.showGameRules) {
