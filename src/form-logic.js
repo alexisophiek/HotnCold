@@ -34,7 +34,7 @@ export default class BasicForm extends React.Component {
               max={max}
               ref={(input) => (this.textInput = input)}
             />
-            <input type="submit" value="Take a Guess" />
+            <input type="submit" value="Take a Guess" disabled={true} />
           </form>
         </>
       );
@@ -53,7 +53,7 @@ export default class BasicForm extends React.Component {
               max={max}
               ref={(input) => (this.textInput = input)}
             />
-            <input type="submit" value="Take a Guess" />
+            <input type="submit" value="Take a Guess" disabled={disableInputField} />
           </form>
         </>
       );

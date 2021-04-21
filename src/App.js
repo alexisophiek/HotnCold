@@ -6,9 +6,7 @@ import Footer from "./footer";
 import HelpWindow from "./help-window";
 import GuessResult from "./guess-result";
 import GuessedNumbersCount from "./guess-count";
-import MyBarChart from "./individual-viz";
-import { rgb } from "d3-color";
-
+import MyBarChart from "./bar-chart"
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +35,7 @@ export default class App extends React.Component {
         reSet: "",
       },
       colorResults: {
-        gameWon: "rgb(160,5,50)",
+        gameWon: "rgb(130,10,50)",
         warmest: "rgb(205,50,19)",
         warmer: "rgb(222,80,19)",
         warm: "rgb(213, 100, 19)",
@@ -184,14 +182,12 @@ export default class App extends React.Component {
     });
   }
 
-  pushRealData(guessedNumber) {
+  pushData(guessedNumber) {
     const previousGuesses = [...this.state.previousGuesses, guessedNumber];
     const jsonObj = {};
     for (var i = 0; i < previousGuesses.length; i++) {
       jsonObj[i + 1] = previousGuesses[i];
     }
-    console.log(jsonObj);
-    // const color = ;
     const dataWithColor = Object.keys(jsonObj).map((key) => ({
       x: Number(key),
       y: jsonObj[key],
@@ -202,8 +198,6 @@ export default class App extends React.Component {
         this.state.maxCount
       ),
     }));
-
-    console.log(dataWithColor);
     return dataWithColor;
   }
 
@@ -227,7 +221,6 @@ export default class App extends React.Component {
     if (this.state.showGameRules) {
       return <HelpWindow onClickClose={() => this.setShowGameRules(false)} />;
     }
-
     return (
       <div className="App">
         <TopNavigation
@@ -255,8 +248,7 @@ export default class App extends React.Component {
           Your Previous Guesses: {this.state.previousGuesses.toString()}
         </div>
         <GuessedNumbersCount count={this.state.guessCount} />
-        <br></br>
-        <MyBarChart data={this.pushRealData()} />
+        <MyBarChart data={this.pushData()} />
       </div>
     );
   }

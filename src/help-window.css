@@ -6,3 +6,7 @@
     margin-right: auto;
     margin-left: auto;
   }
+
+  .rules ul {
+    list-style-type: none;
+  }

@@ -1,5 +1,7 @@
 // MyBarChart.js
 import React from "react";
+import "./bar-chart.css";
+
 import {
   XYPlot,
   XAxis, // Shows the values on x axis
@@ -11,10 +13,11 @@ import {
 class MyBarChart extends React.Component {
   render() {
     const data = this.props.data;
-    const chartWidth = 650;
-    const chartHeight = 500;
+    const chartWidth = 450;
+    const chartHeight = 375;
     const chartDomain = [0, 100];
     return (
+      <div className="bar-chart">
       <XYPlot
         xType="ordinal"
         width={chartWidth}
@@ -33,6 +36,7 @@ class MyBarChart extends React.Component {
         />
                     
       </XYPlot>
+      </div>
     );
   }
 }

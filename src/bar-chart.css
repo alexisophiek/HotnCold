@@ -1,0 +1,6 @@
+.bar-chart {
+    margin: 0;
+    display: flex; /* WIDTH and HEIGHT are required*/
+    justify-content: center;
+    align-items: center;
+  }
