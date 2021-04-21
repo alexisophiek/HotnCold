@@ -1,4 +1,4 @@
-# Hot and Cold ApP
+# Hot and Cold App
 
 Welcome to my first React App, the classic hot and cold app.
 
