@@ -11,7 +11,7 @@ export default function TopNavigation({onClickNewGame, onClickShowRules}) {
       </ul>
     </nav>
 
-  <h1>Are you Hot or Cold?</h1>
+  <h1>Guess a Number</h1>
   </header>
   );
 }

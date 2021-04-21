@@ -42,7 +42,7 @@ export default class BasicForm extends React.Component {
       return (
         <>
           <section>
-            <p>I'm thinking of a number. Can you guess it?</p>
+            <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
           </section>
           <form onSubmit={(e) => this.onSubmit(e)}>
             <input
