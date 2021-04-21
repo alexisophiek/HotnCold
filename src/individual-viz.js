@@ -11,9 +11,8 @@ import {
 class MyBarChart extends React.Component {
   render() {
     const data = this.props.data;
-    const color = this.props.color;
     const chartWidth = 650;
-    const chartHeight = 450;
+    const chartHeight = 500;
     const chartDomain = [0, 100];
     return (
       <XYPlot
@@ -21,11 +20,10 @@ class MyBarChart extends React.Component {
         width={chartWidth}
         height={chartHeight}
         yDomain={chartDomain}
-        color={color}
       >
                         <XAxis />
                         <YAxis />
-                        <VerticalBarSeries data={data} />
+                        <VerticalBarSeries data={data} colorType="literal" />
                         <LabelSeries
           data={data.map((obj) => {
             return { ...obj, label: obj.y };
